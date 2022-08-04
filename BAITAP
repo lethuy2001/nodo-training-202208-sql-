@@ -1,0 +1,43 @@
+-- Bài 2
+-- 1
+select * from SALGRADE ;
+
+-- 1
+select EMPNO , ENAME , JOB , MGR , HIREDATE , SAL , COMM , DEPTNO from EMP ;
+
+-- 2
+select distinct JOB from EMP where JOB  is not null ;
+
+-- 3
+select ENAME , SAL * 12 as REMUNERATION from EMP where SAL is not null and ROWNUM <= 14 ;
+
+-- 4
+select ENAME || ' HAS HELP THE POTION OF ' || JOB || 'IN DEPT ' || DEPTNO || ' SINCE ' || HIREDATE  from EMP where ROWNUM <= 14 ;
+
+-- 5
+select * from EMP ;
+
+-- 6
+select to_char(SAL , 'fm999G999G990' )  as LUONG , to_char( HIREDATE , 'dd/mm/yyyy' )  as Ngay from EMP  where  SAL is not null ;
+
+-- Bài 3
+
+-- 1
+select ENAME , DEPTNO  ,SAL  from EMP where SAL BETWEEN 1000 and 2000  ;
+
+-- 2
+select DEPTNO , DNAME from DEPT order by DNAME desc ;
+-- 3
+select EMPNO , ENAME , JOB , MGR , HIREDATE , SAL , COMM , DEPTNO  from EMP where DEPTNO = 10 or DEPTNO = 20 order by  ENAME ;
+-- 4
+select ENAME , JOB from EMP  where  DEPTNO = 20 and JOB like 'CLERK';
+-- 5
+select ENAME from EMP where  ENAME like '%LL%' or ENAME like '%TH%';
+-- 6
+select ENAME , JOB , SAL from EMP where ROWNUM <= 13 and JOB not like 'PRESIDENT';
+
+-- 7
+select ENAME , DEPTNO , HIREDATE  from EMP where to_char( HIREDATE , 'yyyy') = 1983;
+-- 8
+select ENAME ,  SAL * 12 as ANSUAL_SAL , COMM  from EMP where JOB like 'SALESMAN' and SAL > COMM order by SAL desc , ENAME asc ;
+
