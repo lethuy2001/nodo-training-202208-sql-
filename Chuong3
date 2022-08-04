@@ -1,24 +1,3 @@
--- Bài 2
--- 1
-select * from SALGRADE ;
-
--- 1
-select EMPNO , ENAME , JOB , MGR , HIREDATE , SAL , COMM , DEPTNO from EMP ;
-
--- 2
-select distinct JOB from EMP where JOB  is not null ;
-
--- 3
-select ENAME , SAL * 12 as REMUNERATION from EMP where SAL is not null and ROWNUM <= 14 ;
-
--- 4
-select ENAME || ' HAS HELP THE POTION OF ' || JOB || 'IN DEPT ' || DEPTNO || ' SINCE ' || HIREDATE  from EMP where ROWNUM <= 14 ;
-
--- 5
-select * from EMP ;
-
--- 6
-select to_char(SAL , 'fm999G999G990' )  as LUONG , to_char( HIREDATE , 'dd/mm/yyyy' )  as Ngay from EMP  where  SAL is not null ;
 
 -- Bài 3
 
