@@ -152,7 +152,16 @@ FROM EMP e,
 WHERE e.mgr = m.empno
   AND e.sal < m.sal;
 
--- 10
+-- 10 Như câu 9 hiển thị thêm thông tin về ông KING
+
+SELECT e.ENAME emp_name,
+       e.SAL   emp_sal,
+       m.ENAME mgr_name,
+       m.SAL   mgr_sal
+FROM EMP e,
+     EMP m
+WHERE e.mgr = m.empno
+  AND e.sal < m.sal;
 
 -- 11 . Hiển thị nghề nghiệp được tuyển dụng vào năm 1981 và không được tuyển dụng vào
 -- năm 1994.
@@ -170,8 +179,19 @@ WHERE HIREDATE < ALL (SELECT HIREDATE FROM EMP WHERE JOB = 'MANAGER')
 -- 13  Tìm tất cả các nhân viên, ngày gia nhập công ty, tên nhân viên, tên người giám đốc
 -- và ngày gia nhập công ty của người giám đốc ấy.
 
+SELECT e.ENAME emp_name,
+       e.HIREDATE   hireDate,
+       m.ENAME mgr_name,
+       m.HIREDATE   mgr_sal
+FROM EMP e,
+     EMP m
+WHERE e.mgr = m.empno
+  AND e.sal < m.sal;
+
 -- 14 . Tìm những nhân viên kiếm được lương cao nhất trong mỗi loại nghề nghiệp.
 
+select ENAME from EMP E having E.SAL = ( select MAX( SAL) from EMP B  where B.JOB = E.JOB )
+group by  ENAME , SAL , JOB ;
 
 -- 15. Tìm mức lương cao nhất trong mỗi phòng ban, sắp xếp theo thứ tự phòng ban.
 
@@ -188,11 +208,21 @@ select  ENAME , HIREDATE from EMP where
 -- 17 . Hiển thị những nhân viên có mức lương lớn hơn lương TB của phòng ban mà họ làm
 -- việc.
 
-
+select ENAME , DEPTNO from EMP E having SAL >= ( select avg(SAL) from EMP B where B.DEPTNO = E.DEPTNO )
+group by ENAME ,SAL , DEPTNO ;
 
 -- 18  . Hiển thị tên nhân viên, mã nhân viên, mã giám đốc, tên giám đốc, phòng ban làm
 -- việc của giám đốc, mức lương của giám đốc.
 
-Select job from emp where deptno = 10
-Union
-Select job from emp where deptno = 30;
+SELECT e.EMPNO  EMP_NUMBER,
+       e.ENAME  EMP_NAME ,
+       m.EMPNO  EMP_MRG,
+       m.ENAME  MRG_NAME ,
+       m.DEPTNO MGR_DEPT ,
+       m.SAL MRG_SAL ,
+       s.GRADE MRG_GRAGE
+FROM EMP e,
+     EMP m ,
+     SALGRADE s
+WHERE e.mgr = m.empno
+  AND e.sal < m.sal and m.SAL between  s.LOSAL and s.HISAL;
