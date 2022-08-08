@@ -13,4 +13,6 @@ create  INDEX Isss_PROJID on ASSIGNMENT2001 ( PROJD ) ;
 -- 7521 WARD SALESMAN 7698 22-02-1981 1250 500 30
 create SEQUENCE  my_sequences INCREMENT BY 1 Start With 1 maxvalue 30 minvalue  1 cycle ;
 
-select EMPNO , ENAME , JOB , MGR , HIREDATE , SAL , COMM , DEPTNO  from EMP where  ENAME like 'BLAKE'
+select EMPNO , ENAME , JOB , MGR , HIREDATE , SAL , COMM , DEPTNO
+from EMP where  MGR = ( select EMPNO from EMP B where B.ENAME like 'BLAKE')
+            or EMPNO =  ( select EMPNO from EMP B where B.ENAME like 'BLAKE');
