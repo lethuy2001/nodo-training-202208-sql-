@@ -59,6 +59,8 @@ CREATE TABLE  LM_THUY_MUONSACH (
 );
 -- Câu 1
 
+create index LM_THUY_BANDOC_INDEX_ID on LM_THUY_BANDOC(ID) ;
+create index LM_THUY_SACH_INDEX_ID on LM_THUY_SACH(ID) ;
 
 -- Câu 2
 
@@ -212,3 +214,6 @@ order by sum( LTM.SOLUONG ) desc
 select  b.MA , b.TEN as TEN_BANDOC , LTS.TEN as TEN_SACH from LM_THUY_BANDOC b left join LM_THUY_MUONSACH LTM on b.ID = LTM.ID_BANDOC
                                                       left join LM_THUY_SACH LTS on LTM.ID_SACH = LTS.ID;
 
+create table KAKA(
+     id int
+)
