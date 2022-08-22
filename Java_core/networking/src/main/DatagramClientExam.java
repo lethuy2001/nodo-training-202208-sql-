@@ -9,7 +9,9 @@ public class DatagramClientExam {
             InetAddress  address = InetAddress.getByName("localhost");
             byte[] bytes = "Clien Say Xin Chao".getBytes() ;
             DatagramPacket packet = new DatagramPacket( bytes , bytes.length , address , 4445);
+            socket.send(packet);
 
+            packet = new DatagramPacket(bytes, bytes.length);
             socket.receive(packet);
 
             System.out.println("From Server: " + new String(packet.getData() , 0 , packet.getLength()));

@@ -16,9 +16,9 @@ public class RMIServerExam implements Hello {
     public static void main(String[] args) throws Exception {
         System.setProperty("java.rmi.server.hostname" , "127.0.0.1") ;
         RMIServerExam obj = new RMIServerExam();
-        Remote stub = UnicastRemoteObject.exportObject(obj , 0) ;
+        Hello stub = (Hello) UnicastRemoteObject.exportObject(obj , 0);
 
-        Registry register = LocateRegistry.getRegistry("127.0.0.1" , 8000) ;
+        Registry register = LocateRegistry.getRegistry("127.0.0.1" , 8080) ;
         register.bind("Hello" , stub);
         System.out.println("Server ready");
     }
