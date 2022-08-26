@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" ></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=Demo;" ></property>
+		<property name="username" value="sa" ></property>
+		<property name="password" value="123" ></property>
+	</bean>
+
+	<bean id="studentJdbcDAO" class="edu.java.spring.StudentJdbcDAO" init-method="createTableIfNotExist" >
+		<property name="dataSource" ref="dataSource" > </property>
+		<property name="insertQuery" value="Insert into studentsv ( name , age) values ( ?, ?)" ></property>
+	    <property name="updateAgeByNameSQL" value="update studentsv set age = ? where name = ?" ></property>
+	    <property name="deleteId" value="delete from studentsv where id = ?" ></property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		<property name="dataSource" ref="dataSource" ></property>
+	</bean>
+</beans>

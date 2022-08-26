@@ -15,7 +15,7 @@ public class SocketServerExam {
             Socket socket = serverSocket.accept() ;
             new Thread( () -> {
                 try (DataInputStream input = new DataInputStream(socket.getInputStream());
-                     DataOutputStream ouput = (DataOutputStream) socket.getOutputStream();
+                     DataOutputStream ouput = new DataOutputStream( socket.getOutputStream() )
                 ){
                     System.out.println("Client say: " + input.readUTF() );
                     ouput.writeUTF("I am a socket server");

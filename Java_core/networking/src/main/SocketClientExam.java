@@ -6,12 +6,14 @@ import java.net.Socket;
 
 public class SocketClientExam {
     public static void main(String[] args) throws Exception{
-        Socket socket = new Socket("localhost" , 8081 );
-        System.out.println("CLIENT start sending.....");
-        try (DataInputStream input = (DataInputStream) socket.getInputStream();
-             DataOutputStream output = (DataOutputStream) socket.getOutputStream();
+        Socket socket = new Socket("localhost" , 8091 );
+        System.out.println("CLIENT 1 start sending.....");
+
+        try (DataInputStream input = new DataInputStream( socket.getInputStream()) ;
+             DataOutputStream output = new DataOutputStream ( socket.getOutputStream());
         ){
-            output.writeUTF("Hello Server");
+            output.writeUTF("Client 2: Hello world" );
+            output.flush();
             System.out.println("Server say: " + input.readUTF() );
         }finally {
             socket.close();
