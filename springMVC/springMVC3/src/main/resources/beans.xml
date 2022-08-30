@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<context:component-scan base-package="edu.java.spring.dao.impl" ></context:component-scan>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="messages" ></property>
+ 	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" ></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=Demo;" ></property>
+		<property name="username" value="sa" ></property>
+		<property name="password" value="123" ></property>
+	</bean>
+
+	<bean id="studentJdbcDAO" class="edu.java.spring.dao.impl.StudentDAOImpl"  >
+		<property name="dataSource" ref="dataSource" > </property>
+		<property name="insertQuery" value="Insert into studentsv ( name , age) values ( ?, ?)" ></property>
+		<property name="findAll" value="select * from studentsv" ></property>
+<!--		<property name="updateAgeByNameSQL" value="update studentsv set age = ? where name = ?" ></property>-->
+		<property name="deleteById" value="delete from studentsv where id = ?" ></property>
+	</bean>
+
+	<bean id="titlesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="1" ></property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+ 	</bean>
+
+	<bean id="titlesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" >
+			<list>
+				<value>/tiles/definitions.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000" > </property>
+	</bean>
+</beans>
