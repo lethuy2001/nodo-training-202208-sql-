@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/xsd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+     <class name="com.example.springsecurity_hibernate.model.User" table="HN_USER">
+          <meta attribute="class-decription" >
+              MappingUser class to table HN_USER
+          </meta>
+         <id name="username" type="string" column="username"></id>
+         <property name="password" type="string" column="password" ></property>
+         <property name="email" type="string"  column="email"></property>
+         <property name="age"  type="int" column="age" ></property>
+         <many-to-one name="group" column="groupId" class="com.example.springsecurity_hibernate.model.Group"
+                      not-null="false" lazy="false" insert="true" update="true" />
+     </class>
+</hibernate-mapping>

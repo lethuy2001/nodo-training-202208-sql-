@@ -12,4 +12,8 @@ public interface GroupDao  {
     public void delete( int id ) ;
 
     public void update( Group group ) ;
+
+    public Group findById( int id ) ;
+
+    public List<Group> listByName( String name ) ;
 }

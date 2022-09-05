@@ -84,5 +84,10 @@
             </props>
         </property>
         <property name="packagesToScan" value="com.example.springsecurity_hibernate.model"></property>
+        <property name="mappingLocations" >
+            <list>
+                <value>classpath:User.xml</value>
+            </list>
+        </property>
     </bean>
 </beans>

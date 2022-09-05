@@ -3,6 +3,7 @@ package com.example.springsecurity_hibernate.dao.impl;
 import com.example.springsecurity_hibernate.dao.GroupDao;
 import com.example.springsecurity_hibernate.model.Group;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -64,12 +65,39 @@ public class GroupDaoImpl implements GroupDao {
     public void update(Group group) {
         Session session = sessionFactoryBean.getObject().openSession() ;
         try {
+            session.getTransaction().begin();
             Group group1 = (Group) session.merge( group );
-            session.save(group) ;
+            session.merge(group) ;
             session.flush();
+            session.getTransaction().commit();
             logger.info("Update group: " +  group1.getName() + " Successful");
         }finally {
             session.close();
         }
+    }
+
+    @Override
+    public Group findById( int id ) {
+        Session session = sessionFactoryBean.getObject().openSession() ;
+        session.getTransaction().begin();
+        Group group = session.find( Group.class , id ) ;
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return group ;
+    }
+
+    @Override
+    public List<Group> listByName(String name) {
+        Session session = sessionFactoryBean.getObject().openSession() ;
+        if( name == null || name.length() < 1 ){
+            Query query = session.createQuery("from Group ");
+            return query.getResultList();
+        }
+//        Query query = session.createQuery("from Group where name like '%" + name + "%'");
+
+        Query query = session.createQuery("from Group where name like :svName");
+        query.setParameter("svName" , "%" + name + "%");
+        return query.getResultList() ;
     }
 }

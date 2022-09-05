@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Title</title>
@@ -18,7 +19,8 @@
           <tiles:putAttribute name="body" >
                <h1>Add Group</h1>
                <form:form method="post" action="/group/new">
-                   <input path="name" type="text" name="name">
+                   <form:input path="id" name="id" type="hidden" />
+                   <form:input path="name" type="text" name="name"/>
                    <button>Add</button>
                </form:form>
           </tiles:putAttribute>

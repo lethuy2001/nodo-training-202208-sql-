@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -40,7 +41,7 @@ public class GroupController {
         }else{
             dao.insert(group);
         }
-        return new ModelAndView( "form");
+        return new ModelAndView( "form" );
     }
 
     @RequestMapping("list")
@@ -58,9 +59,19 @@ public class GroupController {
         return "redirect:/group/list" ;
     }
 
-//    @RequestMapping("edit/{id}")
-//    public String edit( @PathVariable("id") Integer id ){
-//        Group group = dao.get
-//    }
+    @RequestMapping("edit/{id}")
+    public ModelAndView edit( @PathVariable("id") Integer id ){
+        Group group = dao.findById(id) ;
 
+        if( group == null ) return new ModelAndView("redirect:/group/list");
+
+        return new  ModelAndView("form" , "command" , group ) ;
+    }
+
+    @RequestMapping("listByName")
+    public ModelAndView list(@RequestParam("q") String name ){
+        ModelAndView mv = new ModelAndView("group_list") ;
+        mv.addObject("groups" , dao.listByName(name));
+        return mv ;
+    }
 }

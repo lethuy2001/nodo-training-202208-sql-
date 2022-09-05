@@ -1,16 +1,19 @@
 package com.example.springsecurity_hibernate.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SortComparator;
+import org.hibernate.annotations.SortNatural;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.SortedSet;
 
 @Entity
-@Table( name = "HN_GROUP" , uniqueConstraints = {@UniqueConstraint( columnNames = "id")})
+@Table( name = "HN_GROUP" )
 public class Group {
     private int id ;
     private String name ;
+
+    private List<User> users ;
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
@@ -29,5 +32,16 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany( cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @JoinColumn(name = "groupId")
+//    @SortNatural
+    @SortComparator(UsernameComparator.class)
+    public List<User> getUsers() {
+        return users;
+    }
+    public void setUsers( List<User> users) {
+        this.users = users;
     }
 }

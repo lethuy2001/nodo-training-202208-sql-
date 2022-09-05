@@ -18,13 +18,28 @@
               <h1>Group list</h1>
               <table>
                   <tr>
+                      <td colspan="3">
+                          <form method="get" action="/group/listByName">
+                               <input type="text" name="q">
+                               <button>Search</button>
+                          </form>
+                      </td>
+                  </tr>
+                  <tr>
                       <td>Name</td>
-                      <td>#</td>
+                      <td colspan="2">#</td>
                   </tr>
                   <c:forEach var="x" items="${groups}">
                        <tr>
-                           <td>${x.name}</td>
-                           <td> <a href="/group/delete/${x.id}">Xóa</a> </td>
+                           <td> <a href="/acc/list/${x.id}">${x.name}</a>
+                               <ul>
+<%--                                   <c:forEach var="a" items="${x.users}">--%>
+<%--                                       <li>${a.username} - ${a.age}</li>--%>
+<%--                                   </c:forEach>--%>
+                               </ul>
+                           </td>
+                           <td> <a href="/group/delete/${x.id}">Delete</a> </td>
+                           <td> <a href="/group/edit/${x.id}"> Edit </a> </td>
                        </tr>
                   </c:forEach>
               </table>
