@@ -6,6 +6,8 @@ import com.example.webservice.model.Group;
 import com.example.webservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,9 @@ public class UserRestController {
     GroupDao groupDao ;
 
     @RequestMapping ("list/users")
+//    @PostFilter("filterObject.username == 'user1w'")
+//    @PreAuthorize("hasRole('ADMIN')")
+      @PostFilter("hasPermission(filterObject , 'read' )")
     public List<User> ListUser(HttpServletRequest request ){
         if( !request.isUserInRole("ADMIN")){
             throw new RuntimeException("Access Denied!");

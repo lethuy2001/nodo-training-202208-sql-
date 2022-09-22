@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <div class="container">
+                    <form class="row mt-1" [formGroup]="authorSearch">
+                        <div class="offset-1 col-5">
+                            <label>Tên bạn đọc</label>
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                        <div class="col-5">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" formControlName="address" >
+                        </div>
+                        <div class="col-12 mt-3 d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary" (click)="applyFilter()">Tìm Kiếm</button>
+                            <button type="button" class="btn btn-primary ms-4"
+                                    (click)="openFormDialog(TYPE_DIALOG.NEW)"> Thêm mới
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-12 mt-3">
+            <mat-card>
+                <table class="w-100" mat-table [dataSource]="borrowBook" matSort>
+                    <ng-container matColumnDef="nguoimuon">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Người mượn</th>
+                        <td mat-cell *matCellDef="let element"> {{element.banDoc.ten}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sach">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sách mượn</th>
+                        <td mat-cell *matCellDef="let element"> {{element.sach.ten}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="soluong">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Số lượng</th>
+                        <td mat-cell *matCellDef="let element"> {{element.soluong}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ngaymuon">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày mượn</th>
+                        <td mat-cell *matCellDef="let element"> {{element.ngaygiomuon | date : 'hh-mm-ss dd/MM/yyyy'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ngaytra">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày trả</th>
+                        <td mat-cell *matCellDef="let element"> {{element.ngaytra | date : 'hh-mm-ss dd/MM/yyyy'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="trangthai">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</th>
+                        <td mat-cell *matCellDef="let element" [class]="element.trangthai == 1 ? 'text-success' : 'text-danger' ">{{element.trangthai == 1 ? 'Đang mượn' : 'Đã trả'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ghichu">
+                        <th mat-header-cell *matHeaderCellDef>Ghi chú</th>
+                        <td mat-cell *matCellDef="let element"> {{element.ghichu}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="control">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button class="btn text-primary"
+                                    aria-label="Example icon button with a menu icon"
+                                    (click)="openFormDialog( TYPE_DIALOG.UPDATE , element)">
+                                <mat-icon>edit_note</mat-icon>
+                            </button>
+                            <button mat-icon-button class="btn text-danger"
+                                    aria-label="Example icon button with a menu icon"
+                                    (click)="openDeleteDialog( element )">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

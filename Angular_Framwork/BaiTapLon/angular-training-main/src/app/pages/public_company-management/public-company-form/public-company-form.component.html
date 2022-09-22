@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h6 class="main-content-label">{{ title }}</h6>
+            <span class="fe fe-x icon-close" (click)="onDismiss()"></span>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="pcForm" (ngSubmit)="Submit()">
+            <div class="container">
+                <div class="row">
+                    <mat-form-field appearance="outline" class="mt-3">
+                        <mat-label>Tên</mat-label>
+                        <input matInput formControlName="ten">
+                        <mat-error *ngIf=" isValidate('ten' ,'required')">
+                            Vui lòng nhập tên
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-radio-group aria-label="Select an option" formControlName="trangthai" class="mt-2">
+                        <mat-radio-button  [value]="1" >Hoạt động</mat-radio-button>
+                        <mat-radio-button  class="ms-3" [value]="2">Ngừng hoạt động</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field appearance="outline" class="mt-2">
+                        <mat-label>Địa chỉ</mat-label>
+                        <input matInput formControlName="diachi">
+                        <mat-error *ngIf=" isValidate('diachi' ,'required')">
+                            Vui lòng nhập địa chỉ
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="mt-2">
+                        <mat-label>Mô tả</mat-label>
+                        <textarea matInput formControlName="mota"> </textarea>
+                    </mat-form-field>
+
+                    <div class="col" class="mt-2">
+                        <button class="btn btn-primary">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

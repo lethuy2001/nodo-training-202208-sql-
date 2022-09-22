@@ -12,7 +12,7 @@ public class RestClientTest {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Accept" , "Application/Json");
 
-        String account = "nguoidung:123456" ;
+        String account = "quantri:123456" ;
 
         String basicAuth = "Basic " + DatatypeConverter.printBase64Binary( account.getBytes());
 

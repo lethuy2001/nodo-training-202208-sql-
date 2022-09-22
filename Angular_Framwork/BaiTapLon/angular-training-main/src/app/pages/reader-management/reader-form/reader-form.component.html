@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h6 class="main-content-label">{{ title }}</h6>
+            <span class="fe fe-x icon-close" (click)="onDismiss()"></span>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="readerForm" (ngSubmit)="Submit()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100">
+                            <mat-label>Tên bạn đọc</mat-label>
+                            <input matInput formControlName="ten" >
+                            <mat-error *ngIf=" isValidate( 'ten' , 'required')">
+                                Vui lòng nhập tên sách
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field class="w-100 mt-3" appearance="outline">
+                            <mat-label>Ngày sinh</mat-label>
+                            <input matInput formControlName="ngaysinh" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf=" isValidate( 'ngaysinh' , 'required')">
+                                Vui lòng nhập năm sản xuất
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100">
+                            <mat-label>Số điện thoại</mat-label>
+                            <input matInput formControlName="sdt">
+                            <mat-error *ngIf=" isValidate( 'sdt' , 'required')">
+                                Vui lòng nhập chủ đề sách
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100">
+                            <mat-label>Địa chỉ</mat-label>
+                            <input matInput formControlName="diachi">
+                            <mat-error *ngIf=" isValidate( 'diachi' , 'required')">
+                                Vui lòng nhập tổng số sách
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <mat-radio-group aria-label="Select an option" formControlName="hang" class="mt-2">
+                        <mat-label>Hạng: </mat-label>
+                        <mat-radio-button  class="ms-3" [value]="1" >Bạc</mat-radio-button>
+                        <mat-radio-button  class="ms-3" [value]="2">Vàng</mat-radio-button>
+                        <mat-radio-button  class="ms-3" [value]="3">Bạch Kim</mat-radio-button>
+                    </mat-radio-group>
+
+                    <div class="col" class="mt-3">
+                        <button class="btn btn-primary">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+

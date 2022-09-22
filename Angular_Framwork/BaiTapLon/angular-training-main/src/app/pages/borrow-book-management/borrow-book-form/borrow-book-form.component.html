@@ -1,0 +1,93 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h6 class="main-content-label">{{ title }}</h6>
+            <span class="fe fe-x icon-close" (click)="onDismiss()"></span>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="borrowBookForm" (ngSubmit)="Submit()">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100" formGroupName="sach">
+                            <mat-label>Sách</mat-label>
+                            <mat-select formControlName="id" matNativeControl required>
+                                <mat-option *ngFor="let x of listBook" [value]="x.id">{{x.ten}}</mat-option>
+                            </mat-select>
+<!--                            <mat-error *ngIf=" ">-->
+<!--                                Vui lòng chọn sách-->
+<!--                            </mat-error>-->
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field class="w-100 mt-3" appearance="outline">
+                            <mat-label>Ngày trả </mat-label>
+                            <input matInput formControlName="ngaytra" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf=" isValidate( 'ngaytra' , 'required')">
+                                Vui lòng nhập ngày trả
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100" formGroupName="banDoc">
+                            <mat-label>Người mượn</mat-label>
+                            <mat-select formControlName="id" matNativeControl required>
+                                <mat-option *ngFor="let x of listReader" [value]="x.id">{{x.ten}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100">
+                            <mat-label>Số lượng</mat-label>
+                            <input matInput formControlName="soluong">
+                            <mat-error *ngIf=" isValidate( 'soluong' , 'required')">
+                                Vui lòng nhập số lượng
+                            </mat-error>
+                            <mat-error *ngIf=" isValidate( 'soluong' , 'max')">
+                                Số lượng không quá lớn quá 5
+                            </mat-error>
+                            <mat-error *ngIf=" isValidate( 'soluong' , 'min')">
+                                Số lượng nhỏ nhất là 1
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100" >
+                            <mat-label>Trạng thái</mat-label>
+                            <mat-select formControlName="trangthai" matNativeControl required>
+                                <mat-option [value]="1">Đang mượn</mat-option>
+                                <mat-option [value]="2">Đã trả</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="mt-3 w-100">
+                            <mat-label>Ghi chú</mat-label>
+                            <textarea matInput formControlName="ghichu"> </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col" class="mt-3">
+                        <button class="btn btn-primary">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+

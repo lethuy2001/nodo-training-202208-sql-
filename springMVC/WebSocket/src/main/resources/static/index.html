@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HN Spring WebSosket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+                                              integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+                                              crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"
+            integrity="sha512-tL4PIUsPy+Rks1go4kQG8M8/ItpRMvKnbBjQm4d2DQnFwgcBYRRN00QdyQnWSCwNMsoY/MfJY8nHp2CzlNdtZA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+        var stompClient = null ;
+        function disconnect(){
+            if( stompClient != null ){
+                stompClient.disconnect() ;
+            }
+            console.log("Disconnected stomp client...") ;
+            enableChatbox(false) ;
+        }
+
+        function connect() {
+            var socket = new SockJS("/message");
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log("Connected: " + frame);
+                stompClient.subscribe('/topic/chat' , function (message) {
+                    var textww = JSON.parse(message.body ).content ;
+                    showMessage(textww) ;
+                })
+            });
+            enableChatbox(true) ;
+        }
+
+        function enableChatbox( connected ){
+            document.getElementById('connect').disabled = connected ;
+            document.getElementById('disconnect').disabled = !connected ;
+            if( connected ){
+                document.getElementById('conversationDiv').style.visibility = 'visible' ;
+            }else {
+                document.getElementById('conversationDiv').style.visibility = 'hidden' ;
+            }
+        }
+
+        function showMessage( text ){
+            var respon = document.getElementById('response');
+            var p = document.createElement('p')
+            p.appendChild(document.createTextNode(text));
+            respon.appendChild(p)
+        }
+
+        function send() {
+            var text4 = document.getElementById('message').value ;
+            console.log("Sending...." + text4 ) ;
+            stompClient.send("/app/message" , {} , JSON.stringify({'content':text4 }) );
+        }
+    </script>
+</head>
+<body onload="disconnect()">
+     <h2>Welcome to HN Chat Box</h2>
+     <div>
+         <button id="connect" onclick="connect()">Connect</button>
+         <button id="disconnect" onclick="disconnect()">Disconnect</button>
+     </div>
+
+     <div id="conversationDiv">
+         <label>Message: </label> <input type="text" id="message" />
+         <button id="send" onclick="send()">Send</button>
+         <p id="response"></p>
+     </div>
+</body>
+</html>

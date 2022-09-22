@@ -1,0 +1,68 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+            <h6 class="main-content-label">{{ title }}</h6>
+            <span class="fe fe-x icon-close" (click)="onDismiss()"></span>
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="authorForm" (ngSubmit)="Submit()">
+            <div class="container">
+                <div class="row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mã</mat-label>
+                        <input matInput formControlName="ma">
+                        <mat-error *ngIf=" isValidate('ma' ,'required')">
+                            Vui lòng nhập mã
+                        </mat-error>
+                        <mat-error *ngIf=" isValidate('ma' ,'maxlength')">
+                            Mã không quá 5 ký tự
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tên</mat-label>
+                        <input matInput formControlName="ten">
+                        <mat-error *ngIf=" isValidate('ten' ,'required')">
+                            Vui lòng nhập tên
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Số điện thoại</mat-label>
+                        <input matInput formControlName="sdt">
+                        <mat-error *ngIf=" isValidate('sdt' ,'required')">
+                            Vui lòng nhập số điện thoại
+                        </mat-error>
+                        <mat-error *ngIf=" isValidate('sdt' ,'pattern')">
+                            Số điện thoại không đúng dịnh dạng
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Địa chỉ</mat-label>
+                        <input matInput formControlName="diachi">
+                        <mat-error *ngIf=" isValidate('diachi' ,'required')">
+                            Vui lòng nhập địa chỉ
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mô tả</mat-label>
+                        <textarea matInput formControlName="mota"> </textarea>
+                    </mat-form-field>
+
+                    <div class="col">
+                        <button class="btn btn-primary">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
