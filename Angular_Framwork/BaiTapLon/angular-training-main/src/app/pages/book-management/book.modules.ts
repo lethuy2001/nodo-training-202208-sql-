@@ -21,6 +21,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import {MatSelectModule} from "@angular/material/select";
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule ,
-        MatOptionModule
+        MatOptionModule ,
+        SlickCarouselModule
     ],
     entryComponents: [BookFormComponent]
 })

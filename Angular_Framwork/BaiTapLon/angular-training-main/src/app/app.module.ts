@@ -16,6 +16,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ColorPickerService } from 'ngx-color-picker';
 import { httpInterceptorProviders } from './shared/helpers/http.interceptor';
 import { HttpClientModule } from '@angular/common/http';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
         AngularFirestoreModule,
         AngularFireAuthModule,
         SimpleNotificationsModule.forRoot(),
-        HttpClientModule, SharedModule
+        HttpClientModule, SharedModule ,
+
     ],
   providers: [ColorPickerService, httpInterceptorProviders],
   bootstrap: [AppComponent],

@@ -70,6 +70,31 @@
   outline: none;
 }
 
+.slick-slider {
+    width: 100%;
+    margin: auto;
+  }
+
+body .slick-prev,
+body .slick-next {
+    height: 20px ;
+    width: 80px !important;
+    z-index: 100;
+}
+
+body .slick-next ::before,
+body .slick-prev ::after {
+    font-size: 40px !important ;
+}
+
+body .slick-next ::before,
+body .slick-prev ::after {
+    width: 40px !important ;
+}
+
+
+
+
 .dark-theme {
   .ng-select-container {
     border-color: var(--dark-border) !important;

@@ -1,5 +1,15 @@
 <div class="container">
     <div class="row">
+        <ngx-slick-carousel class="carousel p-0" style="font-size: 40px;" #slickModal="slick-carousel" [config]="slideConfig"
+            (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+            (beforeChange)="beforeChange($event)">
+            <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <img src="{{ slide.img }}" alt="" width="80%">
+            </div>
+        </ngx-slick-carousel>
+    </div>
+    <div class="row">
+
         <div class="col-12">
             <mat-card>
                 <div class="container">
@@ -15,7 +25,7 @@
                         <div class="col-12 mt-3 d-flex justify-content-center">
                             <button type="button" class="btn btn-primary" (click)="applyFilter()">Tìm Kiếm</button>
                             <button type="button" class="btn btn-primary ms-4"
-                                    (click)="openFormDialog(TYPE_DIALOG.NEW)"> Thêm mới
+                                (click)="openFormDialog(TYPE_DIALOG.NEW)"> Thêm mới
                             </button>
                         </div>
                     </form>
@@ -70,13 +80,12 @@
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element">
                             <button mat-icon-button class="btn text-primary"
-                                    aria-label="Example icon button with a menu icon"
-                                    (click)="openFormDialog( TYPE_DIALOG.UPDATE , element)">
+                                aria-label="Example icon button with a menu icon"
+                                (click)="openFormDialog( TYPE_DIALOG.UPDATE , element)">
                                 <mat-icon>edit_note</mat-icon>
                             </button>
                             <button mat-icon-button class="btn text-danger"
-                                    aria-label="Example icon button with a menu icon"
-                                    (click)="openDeleteDialog( element )">
+                                aria-label="Example icon button with a menu icon" (click)="openDeleteDialog( element )">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </td>
@@ -86,17 +95,10 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
 
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                               showFirstLastButtons
-                               aria-label="Select page of periodic elements">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
                 </mat-paginator>
             </mat-card>
         </div>
     </div>
 </div>
-
-
-
-
-
-
